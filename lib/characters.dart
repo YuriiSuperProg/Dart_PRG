@@ -38,7 +38,7 @@ class Mage extends Character {
   int attack() {
     if (mana >= 20) {
       mana -= 20;
-      return 25 + Random.nextInt(16);
+      return 25 + Random().nextInt(16);
     } else {
       return 5 + Random().nextInt(6);
     }

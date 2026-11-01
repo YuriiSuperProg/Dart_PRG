@@ -1,4 +1,5 @@
 import 'dart:io';
+
 import 'package:lab_rpg_vasilev/characters.dart';
 import 'package:lab_rpg_vasilev/character.dart';
 import 'package:lab_rpg_vasilev/battle.dart';
@@ -9,27 +10,44 @@ void printClasses() {
   print('1 - ${Warrior(name: 'preview')}');
   print('2 - ${Mage(name: 'preview')}');
   print('3 - ${Archer(name: 'preview')}');
-} 
-
-Character selectCharacter(String prompt) {
-  stdout.write('$prompt - введите имя персонажа: ');
-  String? name = stdin.readLineSync();
-  name = (name == null || name.trim().isEmpty)
-  ? 'Герой' : name.trim();
-  printClasses();
 }
 
-while (true) {
-  stdout.write('Выберите класс (1/2/3)');
-  String? choice = stdin.readLineSync();
-  switch (choice?.trim()) {
-    case '1': return Warrior(name: name);
-    case '2': return Mage(name: name);
-    case '3': return Archer(name: name);
-    default:print('Неверный выбор. Введите 1, 2 или 3.');
+Character selectCharacter(String prompt) {
+  stdout.write(
+    '$prompt - введите имя персонажа: ',
+  );
+  String? name = stdin.readLineSync();
+  name =
+      (name == null || name.trim().isEmpty)
+      ? 'Герой'
+      : name.trim();
+
+  printClasses();
+
+  while (true) {
+    stdout.write('Выберите класс (1/2/3): ');
+    String? choice = stdin.readLineSync();
+    switch (choice?.trim()) {
+      case '1':
+        return Warrior(name: name);
+      case '2':
+        return Mage(name: name);
+      case '3':
+        return Archer(name: name);
+      default:
+        print(
+          'Неверный выбор. Введите 1, 2 или 3.',
+        );
+    }
   }
 }
 
 void main() {
-  
+  Character player = selectCharacter(
+    'Игрок',
+  );
+  Character enemy = Warrior(
+    name: 'Противник',
+  );
+  battle(player, enemy);
 }
